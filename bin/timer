@@ -1,0 +1,39 @@
+#!/bin/sh
+echo "[ Excuted ]"
+echo "..if you need help, input \`help\` in time"
+echo "==============================="
+
+while :
+do
+	echo "input and set timer"
+	read -p "Time : " time
+
+	if [ $time = help ]; then
+		echo "----- HELP -------------"
+		echo "sleepコマンドを用いたターミナル上で動く簡易タイマー"
+		echo "＜操作方法＞"
+		echo "1, time で数値を入力"
+		echo "2, Unite で時間の単位を入力"
+		echo "	Unit で指定可能な単位は"
+		echo "		秒　・・・ s , second"
+		echo "		分　・・・ m , minite"
+		echo "		時間・・・ h , hour"
+		echo "---END HELP----------"
+	else
+		break
+	fi
+done
+
+read -p "Unite : " unit
+
+if [ $unit = s ] || [ $unit = second ]; then
+	sleep $time; osascript -e 'display notification "time have passed" sound name "Ping" '
+elif [ $unit = m ] || [ $unit = minite ]; then
+	sleep `expr $time \* 60`; osascript -e 'display notification "time have passed" sound name "Ping" '
+elif [ $unit = h ] || [ $unit = hour ]; then
+	sleep `expr $time \* 3600`; osascript -e 'display notification "time have passed" sound name "Ping" '
+fi
+
+echo "[ End ]"
+
+exit 0
